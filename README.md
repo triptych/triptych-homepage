@@ -1,3 +1,14 @@
+# Triptych Homepage
+This repo represents a fresh start at building a home page using "small web" ideas combined with the latest tech -- Astro, Svelte, and more!
+Getting back to my web development roots and trying to make something awesome.
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0c568ffc-fca7-440b-9e1c-492b1d663785/deploy-status)](https://app.netlify.com/sites/triptych-homepage/deploys)
+
+
+Original readme from the template below:
+
+---
+
 # Welcome to [Astro](https://astro.build)
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/snowpackjs/astro/tree/latest/examples/starter)
