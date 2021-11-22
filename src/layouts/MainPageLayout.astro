@@ -5,6 +5,7 @@ const {title} = Astro.props;
 
 <!-- this layout uses BaseLayout -->
 <BaseLayout title="Triptych:Home">
+<!--
     <div class="container">
         <div class="left"> this is my left hand stuff</div>
         <div class="right">
@@ -12,5 +13,8 @@ const {title} = Astro.props;
             <div class="middle">Middle Element</div>
             <div class="lower">Lower Element</div>
         </div>
+    </div> -->
+    <div class="container">
+        <slot/>
     </div>
 </BaseLayout>
