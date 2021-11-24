@@ -27,3 +27,8 @@ a {
 a:visited {
   color:purple;
 }
+
+nav ul li a:hover {
+  filter: invert(100%);
+  background-color: lightslategray;
+}
