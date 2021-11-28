@@ -3,10 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 const title = "My Blog"
 	const blogPosts = Astro
 		.fetchContent('./blog/*.md')
+		.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
 		.map((post) => {
 			return (
 				<li>
-					<a href={post.url}>{post.title}</a>
+					<a href={post.url}><strong>{post.title}</strong> - {new Date(post.date).toDateString()}</a>
 				</li>
 			)
 		})
