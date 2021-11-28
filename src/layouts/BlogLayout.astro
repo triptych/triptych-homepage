@@ -1,10 +1,10 @@
 ---
 import BaseLayout from './BaseLayout.astro'
 const {title, content} = Astro.props;
-
 ---
-    <BaseLayout title="Triptych:Home">
-        <h1>{content.title}</h1>
-        <div><img src="{content.thumbnail}"/></div>
-        <p><slot/></p>
-    </BaseLayout>
+<BaseLayout title="Triptych:Home">
+    <h1>{content.title}</h1>
+    <div><img src="{content.thumbnail}"/></div>
+    <hr/>
+    <p><slot/></p>
+</BaseLayout>
