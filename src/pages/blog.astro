@@ -1,16 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 const title = "My Blog"
-	const blogPosts = Astro
-		.fetchContent('./blog/*.md')
-		.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
-		.map((post) => {
-			return (
-				<li>
-					<a href={post.url}><strong>{post.title}</strong> - {new Date(post.date).toDateString()}</a>
-				</li>
-			)
-		})
+
+
+
+const allPosts = Astro.fetchContent('./blog/*.md');
+const sortedPosts = allPosts
+	.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+const blogPosts	= sortedPosts
+	.map((post) => {
+		return (
+			<li>
+				<a href={post.url}><strong>{post.title}</strong> - {new Date(post.date).toDateString()}</a>
+			</li>
+		)
+	});
+
+export async function getStaticPaths({paginate, rss}) {
+
+  // Generate an RSS feed from this collection of posts.
+  // NOTE: This is disabled by default, since it requires `buildOptions.site` to be set in your "astro.config.mjs" file.
+	rss({
+	title: 'Triptych',
+	description: 'An example blog on Astro',
+	customData: `<language>en-us</language>`,
+	items: sortedPosts.map(item => ({
+		title: item.title,
+		description: item.description,
+		link: item.url,
+		pubDate: item.date,
+	})),
+	 dest: "/feed.xml"
+	});
+
+  // Return a paginated collection of paths for all posts
+  return paginate(sortedPosts, {pageSize: 1});
+}	
+
 ---
 <BaseLayout>
 <h1>{title}</h1>
