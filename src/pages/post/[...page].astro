@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+const title = "Triptych Blog";
+const description = "My personal blog";
+const canonicalUrl =  Astro.request.canonicalURL;
+
+
+
+export async function getStaticPaths({paginate, rss}){
+    const allPosts = Astro.fetchContent("../blog/*.md");
+    const sortedPosts = allPosts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
+    // Generate an RSS feed from this collection of posts.
+    // NOTE: This is disabled by default, since it requires `buildOptions.site` to be set in your "astro.config.mjs" file.
+    rss({
+        title: 'Triptych Blog',
+        description: 'My Personal Blog',
+        customData: `<language>en-us</language>`,
+        items: sortedPosts.map(item => ({
+            title: item.title,
+            description: item.description,
+            link: item.url,
+            pubDate: item.date,
+        })),
+    });
+    // Return a paginated collection of paths for all posts
+    return paginate(sortedPosts, {pageSize: 1});
+};
+
+const allPosts = Astro.fetchContent("../blog/*.md");
+const sortedPosts = allPosts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
+const blogPosts	= sortedPosts
+	.map((post) => {
+		return (
+			<li>
+				<a href={post.url}><strong>{post.title}</strong> - {new Date(post.date).toDateString()}</a>
+			</li>
+		)
+	});
+
+const {page} = Astro.props;
+---
+<BaseLayout>
+    <h1>{title}</h1>
+	<ol>{blogPosts}</ol>
+</BaseLayout>
